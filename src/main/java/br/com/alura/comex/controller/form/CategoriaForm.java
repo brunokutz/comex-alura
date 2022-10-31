@@ -1,5 +1,6 @@
 package br.com.alura.comex.controller.form;
 
+import br.com.alura.comex.model.Categoria;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
@@ -16,5 +17,9 @@ public class CategoriaForm {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Categoria converter() {
+        return new Categoria(nome);
     }
 }
