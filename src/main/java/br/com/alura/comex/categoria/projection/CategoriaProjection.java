@@ -4,6 +4,6 @@ import java.math.BigDecimal;
 
 public interface CategoriaProjection {
     String getNome();
-    Integer getQuantidadeVendida();
-    BigDecimal getMontanteVendido();
+    Integer getQuantidade();
+    BigDecimal getPreco();
 }

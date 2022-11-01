@@ -1,5 +1,6 @@
 package br.com.alura.comex.pedido.model;
 
+import br.com.alura.comex.pedido.dto.ItemPedidoDto;
 import br.com.alura.comex.produto.model.Produto;
 
 import javax.persistence.*;
@@ -7,7 +8,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "itens_pedido")
-public class ItemDePedido {
+public class ItemPedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,14 +31,22 @@ public class ItemDePedido {
     @Enumerated(EnumType.STRING)
     private TipoDescontoItem tipoDesconto = TipoDescontoItem.NENHUM;
 
-    public ItemDePedido() {
+    public ItemPedido() {
         super();
     }
 
-    public ItemDePedido(Integer quantidade, Produto produto) {
+    public ItemPedido(Integer quantidade, Produto produto) {
         this.quantidade = quantidade;
         this.produto = produto;
         this.precoUnitario = produto.getPrecoUnitario();
+    }
+
+    public ItemPedido(Pedido pedido, Produto produto, ItemPedidoDto itemPedido) {
+        this.precoUnitario = itemPedido.getValorUnitario();
+        this.quantidade = itemPedido.getQuantidade();
+        this.pedido = pedido;
+        this.produto = produto;
+        this.desconto = BigDecimal.valueOf(0);
     }
 
     public BigDecimal getValorTotalItem() {

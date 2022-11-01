@@ -1,5 +1,7 @@
 package br.com.alura.comex.pedido.model;
 
+import br.com.alura.comex.cliente.model.Cliente;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -32,7 +34,8 @@ public class Pedido {
     @Enumerated(EnumType.STRING)
     private TipoDesconto tipoDesconto = TipoDesconto.NENHUM;
 
-    public Pedido() {
+    public Pedido(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public Long getId() {
