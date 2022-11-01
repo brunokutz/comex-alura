@@ -1,15 +1,15 @@
-package br.com.alura.comex.controller.dto;
+package br.com.alura.comex.categoria.dto;
 
-import br.com.alura.comex.model.Categoria;
-import br.com.alura.comex.model.StatusCategoria;
+import br.com.alura.comex.categoria.model.Categoria;
+import br.com.alura.comex.categoria.model.StatusCategoria;
 
-public class CategoriaDto {
+public class CategoriaOutputDto {
 
     private Long id;
     private String nome;
     private StatusCategoria status;
 
-    public CategoriaDto(Categoria categoria) {
+    public CategoriaOutputDto(Categoria categoria) {
         this.id = categoria.getId();
         this.nome = categoria.getNome();
         this.status = categoria.getStatus();

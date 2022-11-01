@@ -1,9 +1,9 @@
-package br.com.alura.comex.controller;
+package br.com.alura.comex.categoria;
 
-import br.com.alura.comex.controller.dto.CategoriaDto;
-import br.com.alura.comex.controller.form.CategoriaForm;
-import br.com.alura.comex.model.Categoria;
-import br.com.alura.comex.repository.CategoriaRepository;
+import br.com.alura.comex.categoria.dto.CategoriaOutputDto;
+import br.com.alura.comex.categoria.dto.CategoriaInputDto;
+import br.com.alura.comex.categoria.model.Categoria;
+import br.com.alura.comex.categoria.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,16 +27,16 @@ public class CategoriaController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<CategoriaDto> cadastrar(@RequestBody @Valid CategoriaForm categoriaForm, UriComponentsBuilder uriComponentsBuilder) {
-        Categoria categoria = categoriaForm.converter();
+    public ResponseEntity<CategoriaOutputDto> cadastrar(@RequestBody @Valid CategoriaInputDto categoriaInputDto, UriComponentsBuilder uriComponentsBuilder) {
+        Categoria categoria = categoriaInputDto.converter();
         categoriaRepository.save(categoria);
 
         URI uri = uriComponentsBuilder.path("/api/categorias/{id}").buildAndExpand(categoria.getId()).toUri();
-        return ResponseEntity.created(uri).body(new CategoriaDto(categoria));
+        return ResponseEntity.created(uri).body(new CategoriaOutputDto(categoria));
     }
 
     @GetMapping("/pedidos")
-    public List<CategoriaDto> listarPedidos() {
+    public List<CategoriaOutputDto> listarPedidos() {
         return null;
     }
 }

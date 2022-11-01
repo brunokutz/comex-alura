@@ -1,8 +1,8 @@
-package br.com.alura.comex.controller.form;
+package br.com.alura.comex.produto.dto;
 
-import br.com.alura.comex.model.Categoria;
-import br.com.alura.comex.model.Produto;
-import br.com.alura.comex.repository.CategoriaRepository;
+import br.com.alura.comex.categoria.model.Categoria;
+import br.com.alura.comex.produto.model.Produto;
+import br.com.alura.comex.categoria.repository.CategoriaRepository;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
@@ -10,7 +10,7 @@ import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-public class ProdutosForm {
+public class ProdutoInputDto {
 
     @NotBlank @Length(min = 2)
     private String nome;

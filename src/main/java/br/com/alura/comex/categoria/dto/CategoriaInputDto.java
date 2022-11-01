@@ -1,12 +1,12 @@
-package br.com.alura.comex.controller.form;
+package br.com.alura.comex.categoria.dto;
 
-import br.com.alura.comex.model.Categoria;
+import br.com.alura.comex.categoria.model.Categoria;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class CategoriaForm {
+public class CategoriaInputDto {
 
     @NotNull @NotEmpty @Length(min = 2)
     private String nome;

@@ -1,4 +1,6 @@
-package br.com.alura.comex.model;
+package br.com.alura.comex.categoria.model;
+
+import br.com.alura.comex.produto.model.Produto;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,4 +1,4 @@
-package br.com.alura.comex.model;
+package br.com.alura.comex.cliente.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

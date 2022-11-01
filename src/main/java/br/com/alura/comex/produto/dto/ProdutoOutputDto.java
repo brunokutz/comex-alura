@@ -1,12 +1,12 @@
-package br.com.alura.comex.controller.dto;
+package br.com.alura.comex.produto.dto;
 
-import br.com.alura.comex.model.Produto;
+import br.com.alura.comex.produto.model.Produto;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProdutoDto {
+public class ProdutoOutputDto {
 
     private Long id;
     private String nome;
@@ -16,7 +16,7 @@ public class ProdutoDto {
     private Long idCategoria;
     private String nomeCategoria;
 
-    public ProdutoDto(Produto produto) {
+    public ProdutoOutputDto(Produto produto) {
         this.id = produto.getId();
         this.nome = produto.getNome();
         this.descricao = produto.getDescricao();
@@ -26,8 +26,8 @@ public class ProdutoDto {
         this.nomeCategoria = produto.getCategoria().getNome();
     }
 
-    public static List<ProdutoDto> converter(List<Produto> produto) {
-        return produto.stream().map(ProdutoDto::new).collect(Collectors.toList());
+    public static List<ProdutoOutputDto> converter(List<Produto> produto) {
+        return produto.stream().map(ProdutoOutputDto::new).collect(Collectors.toList());
     }
 
     public Long getId() {

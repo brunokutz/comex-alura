@@ -1,9 +1,9 @@
-package br.com.alura.comex.service;
+package br.com.alura.comex.produto;
 
-import br.com.alura.comex.controller.form.ProdutosForm;
-import br.com.alura.comex.model.Produto;
-import br.com.alura.comex.repository.CategoriaRepository;
-import br.com.alura.comex.repository.ProdutoRepository;
+import br.com.alura.comex.produto.dto.ProdutoInputDto;
+import br.com.alura.comex.produto.model.Produto;
+import br.com.alura.comex.categoria.repository.CategoriaRepository;
+import br.com.alura.comex.produto.repository.ProdutoRepository;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,8 +26,8 @@ public class ProdutoService {
         return this.produtoRepository.findAll(pageable);
     }
 
-    public Long cadastrar(ProdutosForm produtosForm) {
-        Produto produto = produtosForm.converter(categoriaRepository);
+    public Long cadastrar(ProdutoInputDto produtoInputDto) {
+        Produto produto = produtoInputDto.converter(categoriaRepository);
         produtoRepository.save(produto);
         return produto.getId();
     }
