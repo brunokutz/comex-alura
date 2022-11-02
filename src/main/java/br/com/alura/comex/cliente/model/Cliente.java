@@ -43,6 +43,18 @@ public class Cliente {
     public Cliente() {
     }
 
+    public Cliente(String nome, String cpf, String telefone, String rua, String numero, String complemento, String bairro, String cidade, String estado) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.rua = rua;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.estado = estado;
+    }
+
     public Long getId() {
         return id;
     }

@@ -1,19 +1,19 @@
 package br.com.alura.comex.pedido.dto;
 
 import br.com.alura.comex.cliente.model.Cliente;
-import br.com.alura.comex.cliente.repository.ClienteRepository;
 import br.com.alura.comex.pedido.model.Pedido;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
 public class PedidoInputDto {
 
-    @NotBlank
+    @NotNull
     private Long idCliente;
-    @NotBlank @Valid
+    @NotNull @NotEmpty @Valid
     private List<ItemPedidoDto> produtos;
 
     public Long getIdCliente() {
@@ -32,8 +32,7 @@ public class PedidoInputDto {
         this.produtos = produtos;
     }
 
-    public Pedido converterPedido(ClienteRepository clienteRepository) {
-        Optional<Cliente> cliente = clienteRepository.findById(idCliente);
-        return cliente.map(cli -> new Pedido(cliente.get())).orElse(null);
+    public Pedido converter(Cliente cliente) {
+        return new Pedido(cliente);
     }
 }

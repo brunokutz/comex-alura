@@ -6,6 +6,7 @@ import br.com.alura.comex.categoria.repository.CategoriaRepository;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -15,11 +16,11 @@ public class ProdutoInputDto {
     @NotBlank @Length(min = 2)
     private String nome;
     private String descricao;
-    @NotBlank @PositiveOrZero
+    @NotNull @PositiveOrZero
     private BigDecimal precoUnitario;
-    @NotBlank
+    @NotNull
     private Integer quantidadeEstoque;
-    @NotBlank
+    @NotNull
     private Long idCategoria;
 
     public String getNome() {

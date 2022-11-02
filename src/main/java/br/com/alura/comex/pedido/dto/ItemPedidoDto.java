@@ -1,23 +1,21 @@
 package br.com.alura.comex.pedido.dto;
 
-import br.com.alura.comex.cliente.model.Cliente;
 import br.com.alura.comex.pedido.model.ItemPedido;
 import br.com.alura.comex.pedido.model.Pedido;
 import br.com.alura.comex.produto.model.Produto;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
-import java.util.Optional;
 
 public class ItemPedidoDto {
 
-    @NotBlank
+    @NotNull
     private Long idProduto;
-    @NotBlank
+    @NotNull
     private Integer quantidade;
 
-    @NotBlank @PositiveOrZero
+    @NotNull @PositiveOrZero
     private BigDecimal valorUnitario;
 
     public ItemPedidoDto() {
@@ -47,7 +45,7 @@ public class ItemPedidoDto {
         this.valorUnitario = valorUnitario;
     }
 
-    public ItemPedido converterItemPedido(Pedido pedido, Produto produto, ItemPedidoDto itemPedidoDto) {
+    public ItemPedido converter(Pedido pedido, Produto produto, ItemPedidoDto itemPedidoDto) {
         return new ItemPedido(pedido, produto, itemPedidoDto);
     }
 }

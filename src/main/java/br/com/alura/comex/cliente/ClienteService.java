@@ -9,25 +9,26 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
 
+@Service
 public class ClienteService {
 
     @Autowired
     private ClienteRepository clienteRepository;
 
-    public ResponseEntity<Long> create(ClienteInputDto clienteInputDto, UriComponentsBuilder uriBuilder){
-        Cliente cliente = clienteRepository.save(ClienteMapper.toEntity(clienteInputDto));
-
+    public ResponseEntity<ClienteOutputDto> create(ClienteInputDto clienteInputDto, UriComponentsBuilder uriBuilder){
+        Cliente cliente = clienteRepository.save(clienteInputDto.converter());
         URI uri = uriBuilder.path("/clientes/{id}").buildAndExpand(cliente.getId()).toUri();
-        return  ResponseEntity.created(uri).body(cliente.getId());
+        return  ResponseEntity.created(uri).body(new ClienteOutputDto(cliente));
     }
 
     public List<ClienteOutputDto> getAll(Integer page) {
         Pageable pageable = PageRequest.of(page, 5, Sort.by(Sort.Direction.ASC, "nome"));
-        return clienteRepository.findAll(pageable).stream().map(ClienteMapper::toOutputDto).toList();
+        return clienteRepository.findAll(pageable).stream().map(ClienteOutputDto::new).toList();
     }
 }

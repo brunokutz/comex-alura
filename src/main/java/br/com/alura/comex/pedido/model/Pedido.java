@@ -34,6 +34,9 @@ public class Pedido {
     @Enumerated(EnumType.STRING)
     private TipoDesconto tipoDesconto = TipoDesconto.NENHUM;
 
+    public Pedido() {
+    }
+
     public Pedido(Cliente cliente) {
         this.cliente = cliente;
     }

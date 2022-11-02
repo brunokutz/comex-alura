@@ -1,5 +1,7 @@
 package br.com.alura.comex.cliente.dto;
 
+import br.com.alura.comex.cliente.model.Cliente;
+
 public class ClienteOutputDto {
 
     private String nome;
@@ -8,6 +10,18 @@ public class ClienteOutputDto {
     private String local;
 
     public ClienteOutputDto() {
+    }
+
+    public ClienteOutputDto(Cliente cliente) {
+        this.nome = cliente.getNome();
+        this.cpf = cliente.getCpf();
+        this.telefone = cliente.getTelefone();
+        this.local = cliente.getRua() + ", Nº " +
+                        cliente.getNumero() + ", " +
+                        cliente.getComplemento() + ", " +
+                        cliente.getBairro() + ", " +
+                        cliente.getCidade() + ", " +
+                        cliente.getEstado();
     }
 
     public String getNome() {

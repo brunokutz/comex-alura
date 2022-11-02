@@ -15,10 +15,10 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("clientes")
+@RequestMapping("/api/clientes")
 public class ClienteController {
 
-    private ClienteService clienteService;
+    private final ClienteService clienteService;
 
     public ClienteController(ClienteService clienteService) {
         this.clienteService = clienteService;
@@ -26,7 +26,7 @@ public class ClienteController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Long> create(@RequestBody @Valid ClienteInputDto clienteInputDto, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<ClienteOutputDto> create(@RequestBody @Valid ClienteInputDto clienteInputDto, UriComponentsBuilder uriBuilder){
         return clienteService.create(clienteInputDto, uriBuilder);
     }
 

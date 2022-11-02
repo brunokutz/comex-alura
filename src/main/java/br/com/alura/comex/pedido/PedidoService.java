@@ -9,7 +9,7 @@ import br.com.alura.comex.pedido.repository.ItemPedidoRepository;
 import br.com.alura.comex.pedido.repository.PedidoRepository;
 import br.com.alura.comex.produto.model.Produto;
 import br.com.alura.comex.produto.repository.ProdutoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -20,42 +20,41 @@ import java.util.Optional;
 @Service
 public class PedidoService {
 
+    private final PedidoRepository pedidoRepository;
+    private final ClienteRepository clienteRepository;
+    private final ProdutoRepository produtoRepository;
+    private final ItemPedidoRepository itemPedidoRepository;
 
-    @Autowired
-    private PedidoRepository pedidoRepository;
-
-    @Autowired
-    private ClienteRepository clienteRepository;
-
-    @Autowired
-    private ProdutoRepository produtoRepository;
-
-    @Autowired
-    private ItemPedidoRepository itemPedidoRepository;
+    public PedidoService(@Lazy PedidoRepository pedidoRepository,
+                         @Lazy ClienteRepository clienteRepository,
+                         @Lazy ProdutoRepository produtoRepository,
+                         @Lazy ItemPedidoRepository itemPedidoRepository) {
+        this.pedidoRepository = pedidoRepository;
+        this.clienteRepository = clienteRepository;
+        this.produtoRepository = produtoRepository;
+        this.itemPedidoRepository = itemPedidoRepository;
+    }
 
     public ResponseEntity<Long> create(PedidoInputDto pedidoInputDto, UriComponentsBuilder uriBuilder){
 
-        Pedido pedido = pedidoRepository.save(pedidoInputDto.converterPedido(clienteRepository));
+        Optional<Cliente> cliente = clienteRepository.findById(pedidoInputDto.getIdCliente());
+
+        if (cliente.isEmpty()){
+            return ResponseEntity.badRequest().build();
+        }
+
+        Pedido pedido = pedidoRepository.save(pedidoInputDto.converter(cliente.get()));
 
         for (ItemPedidoDto itemPedidoDto: pedidoInputDto.getProdutos()) {
             Optional<Produto> produto = produtoRepository.findById(itemPedidoDto.getIdProduto());
             if (produto.isEmpty()){
                 return ResponseEntity.badRequest().build();
             }else{
-                itemPedidoRepository.save(itemPedidoDto.converterItemPedido(pedido, produto.get(), itemPedidoDto));
+                itemPedidoRepository.save(itemPedidoDto.converter(pedido, produto.get(), itemPedidoDto));
             }
         }
 
-        URI uri = uriBuilder.path("/pedidos/{id}").buildAndExpand(pedido.getId()).toUri();
+        URI uri = uriBuilder.path("/api/pedidos/{id}").buildAndExpand(pedido.getId()).toUri();
         return  ResponseEntity.created(uri).body(pedido.getId());
-    }
-
-    private Cliente validateAndReturnCliente(PedidoInputDto pedidoInputDto) {
-        Optional<Cliente> cliente = clienteRepository.findById(pedidoInputDto.getIdCliente());
-        if (cliente.isEmpty()) {
-            return null;
-        }else{
-            return cliente.get();
-        }
     }
 }

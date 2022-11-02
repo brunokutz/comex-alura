@@ -1,13 +1,13 @@
 package br.com.alura.comex.cliente.dto;
 
+import br.com.alura.comex.cliente.model.Cliente;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 
 public class ClienteInputDto {
 
-    @NotBlank
-    @Length(min = 2)
+    @NotBlank @Length(min = 2)
     private String nome;
 
     @NotBlank
@@ -105,5 +105,9 @@ public class ClienteInputDto {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public Cliente converter() {
+        return new Cliente(nome, cpf, telefone, rua, numero, complemento, bairro, cidade, estado);
     }
 }

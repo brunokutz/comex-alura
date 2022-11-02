@@ -2,6 +2,7 @@ package br.com.alura.comex.produto;
 
 import br.com.alura.comex.produto.dto.ProdutoOutputDto;
 import br.com.alura.comex.produto.dto.ProdutoInputDto;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,18 +23,16 @@ import java.net.URI;
 @RequestMapping("/api/produtos")
 public class ProdutoController {
 
-    private ProdutoService produtoService;
+    private final ProdutoService produtoService;
 
-    public ProdutoController(ProdutoService produtoService) {
+    public ProdutoController(@Lazy ProdutoService produtoService) {
         this.produtoService = produtoService;
     }
 
     @PostMapping
     @Transactional
-    public ResponseEntity<ProdutoOutputDto> cadastrar(@RequestBody @Valid ProdutoInputDto produtoInputDto, UriComponentsBuilder uriComponentsBuilder) {
-        Long id = produtoService.cadastrar(produtoInputDto);
-        URI uri = uriComponentsBuilder.path("/api/produtos/{id}").buildAndExpand(id).toUri();
-        return ResponseEntity.created(uri).build();
+    public ResponseEntity<ProdutoOutputDto> cadastrar(@RequestBody @Valid ProdutoInputDto produtoInputDto, UriComponentsBuilder uriBuilder) {
+        return produtoService.cadastrar(produtoInputDto, uriBuilder);
     }
 
     @GetMapping
