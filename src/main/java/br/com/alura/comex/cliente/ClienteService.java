@@ -5,6 +5,7 @@ import br.com.alura.comex.cliente.dto.ClienteOutputDto;
 import br.com.alura.comex.cliente.model.Cliente;
 import br.com.alura.comex.cliente.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @Service
 public class ClienteService {
@@ -27,8 +27,8 @@ public class ClienteService {
         return  ResponseEntity.created(uri).body(new ClienteOutputDto(cliente));
     }
 
-    public List<ClienteOutputDto> getAll(Integer page) {
-        Pageable pageable = PageRequest.of(page, 5, Sort.by(Sort.Direction.ASC, "nome"));
-        return clienteRepository.findAll(pageable).stream().map(ClienteOutputDto::new).toList();
+    public Page<ClienteOutputDto> lista(Pageable pageable) {
+        Page<Cliente> clientes = clienteRepository.findAll(pageable);
+        return ClienteOutputDto.converter(clientes);
     }
 }

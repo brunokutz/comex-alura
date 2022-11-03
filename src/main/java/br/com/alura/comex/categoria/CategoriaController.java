@@ -3,6 +3,8 @@ package br.com.alura.comex.categoria;
 import br.com.alura.comex.categoria.dto.CategoriaInputDto;
 import br.com.alura.comex.categoria.dto.CategoriaOutputDto;
 import br.com.alura.comex.categoria.dto.RelatorioCategoriaOutputDto;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,12 +29,14 @@ public class CategoriaController {
 
     @PostMapping
     @Transactional
+    @CacheEvict(value = "lista_relatorio_categoria_pedidos", allEntries = true)
     public ResponseEntity<CategoriaOutputDto> create(@RequestBody @Valid CategoriaInputDto categoriaInputDto, UriComponentsBuilder uriBuilder){
         return categoriaService.create(categoriaInputDto, uriBuilder);
     }
 
     @GetMapping("/pedidos")
+    @Cacheable(value = "lista_relatorio_categoria_pedidos")
     public List<RelatorioCategoriaOutputDto> lista(){
-        return categoriaService.getPedidos();
+        return categoriaService.lista();
     }
 }

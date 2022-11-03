@@ -2,6 +2,8 @@ package br.com.alura.comex.cliente;
 
 import br.com.alura.comex.cliente.dto.ClienteInputDto;
 import br.com.alura.comex.cliente.dto.ClienteOutputDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +14,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/clientes")
@@ -31,7 +32,7 @@ public class ClienteController {
     }
 
     @GetMapping
-    public List<ClienteOutputDto> lista(Integer page){
-        return clienteService.getAll(page);
+    public Page<ClienteOutputDto> lista(Pageable pageable){
+        return clienteService.lista(pageable);
     }
 }

@@ -1,6 +1,7 @@
 package br.com.alura.comex.pedido;
 
 import br.com.alura.comex.pedido.dto.PedidoInputDto;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,7 @@ public class PedidoController {
 
     @PostMapping
     @Transactional
+    @CacheEvict(value = "lista_relatorio_categoria_pedidos", allEntries = true)
     public ResponseEntity<Long> create(@RequestBody @Valid PedidoInputDto pedidoInputDto, UriComponentsBuilder uriBuilder){
         return pedidoService.create(pedidoInputDto, uriBuilder);
     }

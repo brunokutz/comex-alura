@@ -27,7 +27,7 @@ public class ProdutoService {
         this.categoriaRepository = categoriaRepository;
     }
 
-    public Page<Produto> listar(Pageable pageable) {
+    public Page<Produto> lista(Pageable pageable) {
         return this.produtoRepository.findAll(pageable);
     }
 

@@ -2,6 +2,7 @@ package br.com.alura.comex.categoria.repository;
 
 import br.com.alura.comex.categoria.model.Categoria;
 import br.com.alura.comex.categoria.projection.CategoriaProjection;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -20,7 +21,7 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
                    "WHERE " +
                            "p.categoria_id = c.id " +
                        "AND ip.produto_id = p.id " +
-                   "GROUP by c.id ;"
+                   "GROUP by c.id;"
           , nativeQuery = true)
     List<CategoriaProjection> findRelatorioCategoriasVendidas();
 }

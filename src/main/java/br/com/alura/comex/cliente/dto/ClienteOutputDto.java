@@ -1,6 +1,9 @@
 package br.com.alura.comex.cliente.dto;
 
 import br.com.alura.comex.cliente.model.Cliente;
+import org.springframework.data.domain.Page;
+
+import java.util.stream.Collectors;
 
 public class ClienteOutputDto {
 
@@ -54,5 +57,9 @@ public class ClienteOutputDto {
 
     public void setLocal(String local) {
         this.local = local;
+    }
+
+    public static Page<ClienteOutputDto> converter(Page<Cliente> clientes) {
+        return clientes.map(ClienteOutputDto::new);
     }
 }

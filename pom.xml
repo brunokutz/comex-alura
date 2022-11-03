@@ -8,11 +8,11 @@
 		<version>2.7.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>br.com.alura</groupId>
+	<groupId>br.com.alura.comex</groupId>
 	<artifactId>comex</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>comex</name>
-	<description>Alura project</description>
+	<description>Project Comex</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -27,8 +27,13 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>

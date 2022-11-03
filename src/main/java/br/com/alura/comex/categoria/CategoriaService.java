@@ -6,6 +6,7 @@ import br.com.alura.comex.categoria.dto.RelatorioCategoriaOutputDto;
 import br.com.alura.comex.categoria.mapper.CategoriaMapper;
 import br.com.alura.comex.categoria.model.Categoria;
 import br.com.alura.comex.categoria.repository.CategoriaRepository;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -28,7 +29,7 @@ public class CategoriaService {
         return  ResponseEntity.created(uri).body(new CategoriaOutputDto(categoria));
     }
 
-    public List<RelatorioCategoriaOutputDto> getPedidos() {
+    public List<RelatorioCategoriaOutputDto> lista() {
         return CategoriaMapper.toCategoriaRelatorioOutputDto(categoriaRepository.findRelatorioCategoriasVendidas());
     }
 }
