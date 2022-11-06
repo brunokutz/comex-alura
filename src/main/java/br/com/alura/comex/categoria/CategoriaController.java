@@ -3,8 +3,13 @@ package br.com.alura.comex.categoria;
 import br.com.alura.comex.categoria.dto.CategoriaInputDto;
 import br.com.alura.comex.categoria.dto.CategoriaOutputDto;
 import br.com.alura.comex.categoria.dto.RelatorioCategoriaOutputDto;
+import br.com.alura.comex.produto.dto.ProdutoOutputDto;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +37,11 @@ public class CategoriaController {
     @CacheEvict(value = "lista_relatorio_categoria_pedidos", allEntries = true)
     public ResponseEntity<CategoriaOutputDto> create(@RequestBody @Valid CategoriaInputDto categoriaInputDto, UriComponentsBuilder uriBuilder){
         return categoriaService.create(categoriaInputDto, uriBuilder);
+    }
+
+    @GetMapping
+    public Page<CategoriaOutputDto> listarCategorias(@PageableDefault(sort = "nome", direction = Sort.Direction.ASC, page = 0, size = 5) Pageable pageable) {
+        return categoriaService.listarCategorias(pageable).map(CategoriaOutputDto::new);
     }
 
     @GetMapping("/pedidos")

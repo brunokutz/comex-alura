@@ -6,6 +6,8 @@ import br.com.alura.comex.categoria.dto.RelatorioCategoriaOutputDto;
 import br.com.alura.comex.categoria.mapper.CategoriaMapper;
 import br.com.alura.comex.categoria.model.Categoria;
 import br.com.alura.comex.categoria.repository.CategoriaRepository;
+import br.com.alura.comex.produto.model.Produto;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,10 @@ public class CategoriaService {
         Categoria categoria = categoriaRepository.save(categoriaInputDto.converter());
         URI uri = uriBuilder.path("/categorias/{id}").buildAndExpand(categoria.getId()).toUri();
         return  ResponseEntity.created(uri).body(new CategoriaOutputDto(categoria));
+    }
+
+    public Page<Categoria> listarCategorias(Pageable pageable) {
+        return this.categoriaRepository.findAll(pageable);
     }
 
     public List<RelatorioCategoriaOutputDto> lista() {

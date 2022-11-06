@@ -2,6 +2,11 @@ package br.com.alura.comex.categoria.dto;
 
 import br.com.alura.comex.categoria.model.Categoria;
 import br.com.alura.comex.categoria.model.StatusCategoria;
+import br.com.alura.comex.produto.dto.ProdutoOutputDto;
+import br.com.alura.comex.produto.model.Produto;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CategoriaOutputDto {
 
@@ -25,5 +30,9 @@ public class CategoriaOutputDto {
 
     public StatusCategoria getStatus() {
         return status;
+    }
+
+    public static List<CategoriaOutputDto> converter(List<Categoria> categoria) {
+        return categoria.stream().map(CategoriaOutputDto::new).collect(Collectors.toList());
     }
 }
